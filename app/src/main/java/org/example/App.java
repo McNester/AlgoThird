@@ -9,7 +9,6 @@ public class App {
     }
 
     public static void main(String[] args) {
-        Greeter.name();
         System.out.println(new App().getGreeting());
     }
 }

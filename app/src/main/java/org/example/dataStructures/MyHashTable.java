@@ -23,6 +23,14 @@ public class MyHashTable<K, V> {
     private int M = 11;
     private int size;
 
+    public int getM() {
+        return M;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
     public MyHashTable() {
         chainArray = new HashNode[M];
         size = 0;
@@ -59,6 +67,27 @@ public class MyHashTable<K, V> {
         }
 
         chainArray = biggerChainArray;
+    }
+
+    public int getBucketSize(int index) {
+        HashNode<K, V> head = chainArray[index];
+        if (head == null) {
+            return 0;
+        }
+
+        int bucketSize = 1;
+
+        if (head.next.equals(null)) {
+            return bucketSize;
+        }
+
+        while (head.next != null) {
+            bucketSize++;
+            head = head.next;
+        }
+
+        return bucketSize;
+
     }
 
     // TODO: Put at table index i if free, if not try i+1,i+2..
