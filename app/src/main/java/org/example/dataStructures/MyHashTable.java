@@ -44,8 +44,29 @@ public class MyHashTable<K, V> {
         return hash;
     }
 
+    private double getLoadFactor() {
+        return size / M;
+    }
+
+    private void rehash() {
+        M *= M;
+        HashNode<K, V>[] biggerChainArray = new HashNode[M];
+
+        for (int i = 0; i < chainArray.length; i++) {
+            if (chainArray[i] != null) {
+                biggerChainArray[i] = chainArray[i];
+            }
+        }
+
+        chainArray = biggerChainArray;
+    }
+
     // TODO: Put at table index i if free, if not try i+1,i+2..
     public void put(K key, V value) {
+        double loadFactor = getLoadFactor();
+        if (loadFactor > 0.7) {
+            rehash();
+        }
         int index = hash(key);
         HashNode<K, V> newElem = new HashNode<K, V>(key, value);
         newElem.next = null;
