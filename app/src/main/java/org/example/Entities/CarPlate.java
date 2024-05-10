@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Entities;
 
 /**
  * This my implementation of a testing class for a key in MyHashTable

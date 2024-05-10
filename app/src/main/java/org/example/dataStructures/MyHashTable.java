@@ -1,4 +1,4 @@
-package org.example;
+package org.example.dataStructures;
 
 //NOTE: once table has passed its load factor- it has to rehash(create a new bigger table, and re-insert each element to the table)
 public class MyHashTable<K, V> {
@@ -30,7 +30,7 @@ public class MyHashTable<K, V> {
 
     public MyHashTable(int M) {
         this.M = M;
-        chainArray = new HashNode[];
+        chainArray = new HashNode[M];
 
         size = 0;
     }

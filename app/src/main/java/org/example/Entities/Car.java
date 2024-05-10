@@ -1,8 +1,6 @@
-package org.example;
 
-/**
- * Car
- */
+package org.example.Entities;
+
 public class Car {
     private CarPlate plate;
     private String brand;
