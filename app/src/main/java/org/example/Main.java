@@ -11,8 +11,13 @@ public class Main {
         // TODO: print number of elements in each bucket (chain or linkedlist).
 
         for (int i = 0; i < table.getM(); i++) {
-            System.out.println("\n" + (i + 1) + " Bucket size: " + table.getBucketSize(i));
+            int size = table.getBucketSize(i);
+            if (size > 0) {
+                System.out.println("\n" + (i + 1) + " Bucket size: " + size);
+            }
         }
+
+        System.out.println("\nOverall number of buckets: " + table.getM());
 
     }
 

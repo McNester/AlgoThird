@@ -53,11 +53,13 @@ public class MyHashTable<K, V> {
     }
 
     private double getLoadFactor() {
-        return (double) size / (double) M;
+        System.out.println("ACTUAL LOAD " + size);
+        return size / M;
     }
 
     private void rehash() {
         M *= M;
+        System.out.println("M CHANGE " + M);
         HashNode<K, V>[] biggerChainArray = new HashNode[M];
 
         for (int i = 0; i < chainArray.length; i++) {
@@ -77,7 +79,7 @@ public class MyHashTable<K, V> {
 
         int bucketSize = 1;
 
-        if (head.next == null) {
+        if (head.next.equals(null)) {
             return bucketSize;
         }
 
@@ -93,7 +95,8 @@ public class MyHashTable<K, V> {
     // TODO: Put at table index i if free, if not try i+1,i+2..
     public void put(K key, V value) {
         double loadFactor = getLoadFactor();
-        if (loadFactor > 0.75) {
+        System.out.println("YOUR LOAD" + loadFactor);
+        if (loadFactor > 0.7) {
             rehash();
         }
         int index = hash(key);
@@ -104,7 +107,6 @@ public class MyHashTable<K, V> {
 
         if (head == null) {
             chainArray[index] = newElem;
-            size++;
             return;
         }
 
@@ -114,7 +116,6 @@ public class MyHashTable<K, V> {
         }
 
         chainElem.next = newElem;
-        size++;
     }
 
     public V get(K key) {
