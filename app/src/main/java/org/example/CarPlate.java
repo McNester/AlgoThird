@@ -37,7 +37,14 @@ public class CarPlate {
         int hash = Integer.MAX_VALUE;
         double power = 31;
         for (int i = 0; i < plate.length(); i++) {
-            hash = (int) plate.charAt(i) * (int) Math.pow(power, plate.length() - i);
+            int charOfPlate = plate.charAt(i);
+            // NOTE: numberInPower is basically 31 raised to the power of n-1-i, where n-1
+            // is the length
+            // of a plate number -1, and i is the index of current char in this plate
+            // number;
+            int numberInPower = (int) Math.pow(power, plate.length() - i);
+
+            hash = charOfPlate * numberInPower;
         }
         return hash;
     }
