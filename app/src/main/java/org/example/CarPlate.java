@@ -28,10 +28,18 @@ public class CarPlate {
         this.region = region;
     }
 
+    // TODO: optimize the hashcode method
     @Override
     public int hashCode() {
-        // TODO Auto-generated method stub
-        return super.hashCode();
+        if (plate.isBlank()) {
+            return 0;
+        }
+        int hash = Integer.MAX_VALUE;
+        double power = 31;
+        for (int i = 0; i < plate.length(); i++) {
+            hash = (int) plate.charAt(i) * (int) Math.pow(power, plate.length() - i);
+        }
+        return hash;
     }
 
     @Override
