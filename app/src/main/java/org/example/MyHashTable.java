@@ -17,13 +17,6 @@ public class MyHashTable<K, V> {
         public String toString() {
             return "{" + key + " " + value + "}";
         }
-
-        // public K getKey(){
-        // return this.key;
-        // }
-        // public V getValue(){
-        // return this.value;
-        // }
     }
 
     private HashNode<K, V>[] chainArray;
@@ -42,7 +35,6 @@ public class MyHashTable<K, V> {
         size = 0;
     }
 
-    // TODO: Map key to integer i between 0 and m-1
     private int hash(K key) {
         if (key == null) {
             return 0;
@@ -108,10 +100,40 @@ public class MyHashTable<K, V> {
     }
 
     public boolean contains(V value) {
+        HashNode<K, V> head = chainArray[0];
+        for (int i = 1; i < chainArray.length; i++) {
+            if (value.equals(head.value)) {
+                return true;
+            }
+
+            while (head.next != null) {
+                if (value.equals(head.value)) {
+                    return true;
+                }
+                head = head.next;
+            }
+
+            head = chainArray[i];
+        }
         return false;
     }
 
     public K getKey(V value) {
+        HashNode<K, V> head = chainArray[0];
+        for (int i = 1; i < chainArray.length; i++) {
+            if (value.equals(head.value)) {
+                return head.key;
+            }
+
+            while (head.next != null) {
+                if (value.equals(head.value)) {
+                    return head.key;
+                }
+                head = head.next;
+            }
+
+            head = chainArray[i];
+        }
         return null;
     }
 
