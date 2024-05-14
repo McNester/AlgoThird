@@ -1,5 +1,9 @@
 package org.example.dataStructures;
 
+import java.util.ArrayList;
+
+import jdk.internal.joptsimple.util.KeyValuePair;
+
 public class BST<K extends Comparable<K>, V> {
 
     private Node root = null;
@@ -16,6 +20,24 @@ public class BST<K extends Comparable<K>, V> {
             this.val = val;
         }
 
+    }
+
+    public class KeyValuePair<K, V> {
+        private K key;
+        private V value;
+
+        public KeyValuePair(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public K getKey() {
+            return key;
+        }
+
+        public V getValue() {
+            return value;
+        }
     }
 
     public void put(K key, V val) {
@@ -137,9 +159,12 @@ public class BST<K extends Comparable<K>, V> {
                 }
                 if (isRight == true) {
                     parentNode.right = findNext(currentNode);
+                    size--;
                     return;
                 }
                 parentNode.left = findNext(currentNode);
+                size--;
+                return;
             }
 
             if (currentNode.key.compareTo(key) < 0) {
@@ -160,14 +185,24 @@ public class BST<K extends Comparable<K>, V> {
         }
     }
 
-    // private void find() {
-    // }
-
-    public void print() {
+    private void inOrderToList(ArrayList<KeyValuePair<K, V>> list) {
+        inOrderTraversal(root, list);
     }
 
-    public Iterable<K> iterator() {
-        return null;
+    private void inOrderTraversal(Node node, ArrayList<KeyValuePair<K, V>> list) {
+        if (node == null) {
+            return;
+        }
+        inOrderTraversal(node.left, list);
+        list.add(new KeyValuePair<>(node.key, node.val));
+        inOrderTraversal(node.right, list);
+    }
+
+    public Iterable<KeyValuePair<K, V>> iterator() {
+        ArrayList<KeyValuePair<K, V>> list = new ArrayList<>();
+        inOrderTraversal(root, list);
+
+        return list;
     }
 
 }
