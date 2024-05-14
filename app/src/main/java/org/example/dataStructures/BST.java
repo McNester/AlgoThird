@@ -36,6 +36,11 @@ public class BST<K extends Comparable<K>, V> {
         public V getValue() {
             return value;
         }
+
+        @Override
+        public String toString() {
+            return "\n{" + key + ": " + value + "}";
+        }
     }
 
     public void put(K key, V val) {
@@ -44,6 +49,8 @@ public class BST<K extends Comparable<K>, V> {
         Node currentNode = this.root;
         if (root == null) {
             this.root = node;
+            size++;
+            return;
         }
         while (true) {
             Node nodeToInsert = null;
@@ -197,6 +204,10 @@ public class BST<K extends Comparable<K>, V> {
         inOrderTraversal(root, list);
 
         return list;
+    }
+
+    public int size() {
+        return size;
     }
 
 }
