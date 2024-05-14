@@ -2,7 +2,8 @@ package org.example.dataStructures;
 
 public class BST<K extends Comparable<K>, V> {
 
-    private Node root;
+    private Node root = null;
+    private int size = 0;
 
     private class Node {
         private K key;
@@ -38,9 +39,11 @@ public class BST<K extends Comparable<K>, V> {
             if (nodeToInsert == null) {
                 if (isRight == true) {
                     currentNode.right = node;
+                    size++;
                     return;
                 }
                 currentNode.left = node;
+                size++;
                 return;
             } else {
                 currentNode = nodeToInsert;
@@ -65,20 +68,96 @@ public class BST<K extends Comparable<K>, V> {
 
             if (currentNode.key.compareTo(key) < 0) {
                 nodeToCheck = currentNode.right;
-                // isRight = true;
             } else {
                 nodeToCheck = currentNode.left;
             }
 
-            currentNode = nodeToCheck;
-            continue;
+            if (nodeToCheck == null) {
+                return null;
+            } else {
+                currentNode = nodeToCheck;
+                continue;
+            }
+        }
+    }
 
+    private Node findMaxOnLeft(Node parent) {
+        Node current = parent.left;
+
+        while (current.right != null) {
+            current = current.right;
         }
 
-        return null;
+        return current;
+    }
+
+    private Node findNext(Node deleteNode) {
+        if (deleteNode == null || deleteNode.left == null && deleteNode.right == null) {
+            return null;
+        }
+
+        if (deleteNode.left == null) {
+            return deleteNode.right;
+        }
+
+        if (deleteNode.right == null) {
+            return deleteNode.left;
+        }
+
+        return findMaxOnLeft(deleteNode);
+    }
+
+    private boolean hasTwoChildren(Node node) {
+        if (node.left != null && node.right != null) {
+            return true;
+        }
+        return false;
     }
 
     public void delete(K key) {
+        if (root.key.equals(key)) {
+            root = findNext(root);
+        }
+        Node currentNode = this.root;
+        Node parentNode = this.root;
+
+        boolean isRight = false;
+
+        if (root == null) {
+            return;
+        }
+        while (true) {
+            Node nodeToCheck = null;
+
+            if (currentNode.key.equals(key)) {
+                if (hasTwoChildren(currentNode) == true) {
+                    Node substituteNode = findNext(currentNode);
+                    currentNode.val = substituteNode.val;
+                    currentNode.key = substituteNode.key;
+                }
+                if (isRight == true) {
+                    parentNode.right = findNext(currentNode);
+                    return;
+                }
+                parentNode.left = findNext(currentNode);
+            }
+
+            if (currentNode.key.compareTo(key) < 0) {
+                nodeToCheck = currentNode.right;
+                isRight = true;
+            } else {
+                nodeToCheck = currentNode.left;
+                isRight = false;
+            }
+
+            if (nodeToCheck == null) {
+                return;
+            } else {
+                parentNode = currentNode;
+                currentNode = nodeToCheck;
+                continue;
+            }
+        }
     }
 
     // private void find() {
