@@ -2,8 +2,6 @@ package org.example.dataStructures;
 
 import java.util.ArrayList;
 
-import jdk.internal.joptsimple.util.KeyValuePair;
-
 public class BST<K extends Comparable<K>, V> {
 
     private Node root = null;
@@ -183,10 +181,6 @@ public class BST<K extends Comparable<K>, V> {
                 continue;
             }
         }
-    }
-
-    private void inOrderToList(ArrayList<KeyValuePair<K, V>> list) {
-        inOrderTraversal(root, list);
     }
 
     private void inOrderTraversal(Node node, ArrayList<KeyValuePair<K, V>> list) {
