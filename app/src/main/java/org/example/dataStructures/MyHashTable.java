@@ -47,7 +47,7 @@ public class MyHashTable<K, V> {
         if (key == null) {
             return 0;
         }
-        int hash = key.hashCode() % M;
+        int hash = Math.abs(key.hashCode() % M);
 
         return hash;
     }

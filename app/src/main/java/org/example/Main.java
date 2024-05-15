@@ -75,14 +75,17 @@ public class Main {
         addRandomElements(table);
         System.out.println("Here is the number of elements in each bucket of 10000 elements: ");
 
+        int numberOfFullBuckets = 0;
         for (int i = 0; i < table.getM(); i++) {
             int size = table.getBucketSize(i);
             if (size > 0) {
+                numberOfFullBuckets++;
                 System.out.println("\n" + (i + 1) + " Bucket size: " + size);
             }
         }
 
         System.out.println("\nOverall number of buckets: " + table.getM());
+        System.out.println("\nNumber of filled buckets: " + numberOfFullBuckets);
 
     }
 
